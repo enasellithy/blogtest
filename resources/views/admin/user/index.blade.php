@@ -1,5 +1,4 @@
 @extends('adminlte::page')
-
 @section('title', 'Dashboard')
 
 @section('content_header')
@@ -36,15 +35,27 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Admin</th>
+                    <th>Editor</th>
                     <th>Last Active</th>
                     <th class="text-center">Control</th>
                 </tr>
             </thead>
             @foreach($users as $user)
+            {!! Form::open(['url'=>'/add-role','method'=>'post']) !!}
+            <input type="hidden" name="email" value="{{$user->email}}">
                 <tr>
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                    <td>
+                        <input type="checkbox" name="role_admin" onChange="this.form.submit()"
+                        {{$user->hasRole('Admin')?'checked':''}}>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="role_editor" onChange="this.form.submit()"
+                        {{$user->hasRole('Editor')?'checked':''}}>
+                    </td>
                     <td>{{date('M j, Y   h::i a',strtotime($user->updated_at))}}</td>
                     <td class="text-center">
                         <a class='btn btn-primary btn-xs' href="user/{{$user->id}}/show">
@@ -55,6 +66,7 @@
                             <span class="glyphicon glyphicon-remove"></span> Delete</a>
                     </td>
                 </tr>
+                {!! Form::close() !!}
             @endforeach
         </table>
         <!--End User Table-->

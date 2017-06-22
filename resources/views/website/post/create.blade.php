@@ -39,6 +39,9 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug" required>
                             </div>
+                            <div class="form-group">
+                              {!! Form::select('send', send(), ['class'=>'form-control']) !!}
+                            </div>
                         <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button>
                 {!! Form::close() !!}
               </div>

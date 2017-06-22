@@ -119,7 +119,18 @@ return [
             'url'         => 'admin',
             'icon'        => 'home',
         ],
-        [
+        'submenu' => [
+                [
+                    'text' => 'All User',
+                    'url'  => 'admin/user',
+                    'icon'        => 'users',
+                ],
+                [
+                    'text'    => 'Add User',
+                    'icon'    => 'plus',
+                    'url'     => 'users/create'
+                ]
+            ],
             'text'        => 'Users',
             'url'         => '/user',
             'icon'        => 'users',

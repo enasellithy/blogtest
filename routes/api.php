@@ -13,6 +13,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+Route::get('/user',function(Request $request){
+	return $request->user();
+})->middleware('auth:api');
+
+Route::group(['perfix'=>'api'],function(){
+	Route::get('post','ApiController@post');
+	Route::get('author/{id}/posts','ApiController@authorPost');
+	Route::get('author/show','ApiController@getUser');
+	Route::post('apiuser/login','ApiController@apiUser');
+	Route::get('test',function(){
+		return 'Welcome To Api';
+	});
 });

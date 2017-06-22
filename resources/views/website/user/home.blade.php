@@ -23,6 +23,13 @@
                  </div>
                @endif
             </div>
+            <?php
+            if (!Auth::check()) {
+            return response()->json([
+                'error' => "You are not authenticated",
+            ], 401);
+        }
+            ?>
             <!-- End Message Session-->
             <div class="col-md-12 col-sm-11 display-table-cell v-align">
                 <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->

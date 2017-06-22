@@ -47,5 +47,10 @@
                     </div>
             </div>
         </div>
+
+        {!! Form::open(['url'=>'sub','method'=>'post']) !!}
+        <input type="tel" name="mobile" required="required">
+        <input type="submit" value="Send">
+        {!! Form::close() !!}
                    
 @endsection

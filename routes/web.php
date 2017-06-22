@@ -5,6 +5,15 @@
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+/*Route::get('/sms',function(\Nexmo\Laravel\Facade\Nexmo){
+    Nexmo::message()->send([
+        'to' => '201203298102',
+        'from' =>  'Enas',
+        'text' => 'App Hello'
+        ]);
+});*/
+
 Route::group(['middleware'=>'web'],function(){
     Route::get('/','PostController@index');
     Route::get('/home', 'HomeController@index')->name('home');
@@ -14,17 +23,12 @@ Route::group(['middleware'=>'web'],function(){
             'uses' => 'PostController@getSingle'
             ])->where('slug','[\w\d\-\_]+');
     Route::get('user/{user}/show','UserController@show');
-    Route::resource('post','PostController');
-    Route::get('post/{post}/edit','PostController@edit');
-    Route::post('post/{post}/update','PostController@update');
-    Route::get('post/{post}/delete','PostController@destroy');
+    
     Route::get('post/{post}/show','PostController@show');
     Route::post('comment/store','CommentController@store');
+    Route::post('sub','PostController@saveSub');
 
-    // Upload Image
-    Route::get('public/images/post/{$image}',function($name){
-    			return public_path('images/post/'.$name); 
-    	});
+    
 });
 
 /*
@@ -32,15 +36,20 @@ Route::group(['middleware'=>'web'],function(){
 | Admin Routes
 |-------------------------------------------------------------------------
 */
-Route::group(['middleware'=>'admin'],function(){
-    Route::get('/admin','AdminController@index');
-    Route::resource('/user','UserController');
-    Route::get('user/{user}/edit','UserController@edit');
-    Route::post('user/{user}/update','UserController@update');
-    Route::get('user/{user}/delete','UserController@destroy');
-    Route::get('admin/post','AdminController@getPostIndex');
-    Route::get('admin/comment','AdminController@getCommentIndex');
-    Route::get('admin/{comment}/edit','AdminController@editComment');
-    Route::post('comment/{comment}/update','AdminController@updateComment');
-    Route::get('comment/{comment}/delete','AdminController@deleteComment');
+//Route::group(['middleware'=>'admin'],function(){
+//Route::group(['middleware'=>'roles',['roles'=>['admin']]],function(){
+/*Route::group(['namespace' => 'Admin',['perfix'=> 'admin','middleware'=>'roles',['roles'=>['admin']]]],function(){
+    //
+   
+});*/
+Route::group(['perfix'=>'admin','middleware'=>'roles','namespace' => 'Admin'],function(){
+   require_once __DIR__.'/admin.php';
 });
+ 
+    /*Route::get('/admin',[
+        'uses'       => 'AdminController@admin',
+        'as'         => 'content.admin',
+        //'middleware' => 'roles',
+        'roles'      => ['admin']
+        ]);*/
+//});

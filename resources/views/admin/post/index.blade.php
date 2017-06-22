@@ -44,7 +44,7 @@
                     <tr>
                         <td>{{$post->id}}</td>
                         <td>{{$post->title}}</td>
-                        <td>{{App\User::find($post->user_id)->name}}</td>
+                        <td>{{App\Model\User::find($post->user_id)->name}}</td>
                         <td>{{$post->comment->count()}}</td>
                         <td>{{date('M j, Y   h::i a',strtotime($post->updated_at))}}</td>
                         <td class="text-center">
